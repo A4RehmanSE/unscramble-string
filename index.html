@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Unscramble</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+	#content{
+	  visibility: hidden;
+	  opacity: 0;
+	}
+	#content.appear{
+	  visibility: visible;
+	  opacity: 1;
+	}
+	.iHead{
+		font-size: 25px;
+	    background: #484848;
+	    color: white;
+	    padding: 0px 0px 5px 16px;
+	    border-radius: 6px;
+	}
+	.words_container{
+		font-size: 25px;
+	    background: #f8f9fa;
+	    color: black;
+	    padding: 8px 0px 0px 16px;
+	    border-radius: 0px;
+	    margin: -4px 0px 10px 0px;
+	    border: 1px solid lightgray;
+	}
+	.dWords{
+		padding: 0px 17px 10px 10px;
+	}
+	.card-header{
+		background-color: #484848;
+    	color: white;
+	}
+	.float-right{
+		margin-top: -23%;
+	}
+	.display{
+		display: none;
+	}
+	.mobile_display{
+		display: none;
+	}
+	.search-container {
+	  background-color: #FFF;
+	  position: relative;
+	  padding: 3px 50px 3px 10px;
+	}
+	.search-box {
+	    background-color: white;
+	    outline: none;
+	    height: 35px;
+	    font-size: 15px;
+	    width: 100%;
+	}
+	.search-button {
+	    position: absolute;
+	    right: 35px;
+	    top: 4px;
+	    border: 0;
+	    color: #101010;
+	    width: 35px;
+	    height: 35px;
+	    outline: 0;
+	}
+	.show_hide{
+		display: none;
+	}
+	@media (max-width: 992px) { footer .cizgi { border-right: none; } }
+	@media only screen and (max-width: 600px) {
+		.unscramble{
+			margin-top: 5px;
+		}
+		.mobile_display{
+			display: block;
+		}
+		.desktop_display{
+			display: none;
+		}
+	}
+</style>
+<body>
+<div class="container-fluid pt-3 bg-light">
+	<div class="container">
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-9">
+						<input class="form-control search-box" type="text" placeholder="Enter word to unscramble" id="scrmbWrd" maxlength="15">
+						<a href="#!" class="search-button show_hide" style="text-decoration: none;">Clear</a>
+					</div>
+					<div class="col-md-3">
+						<button class="unscramble btn btn-secondary" onclick="unscramble($('#scrmbWrd').val().toLowerCase())">unscramble</button>
+					</div>
+				</div>
+				<div class="row mt-1">
+					<div class="col-md-4">
+						<select id="selDict" class="form-control">
+							<option value="1">TWL Dictionary</option>
+							<option value="2">SOWPODS Dictionary</option>
+							<option value="3">ENABLE - Words With Friends</option>
+						</select>
+					</div>
+					<div class="col-md-2 mt-1">
+						<button type="button" class="btn btn-secondary shwo_advance" id="show_advance" style="padding: 0px 23px 0px 23px;">Advance</button>
+					</div>
+					
+				</div>
+				<div class="row mt-2 display" id="content" style="margin-bottom: 20px;">
+					<div class="col-md-3">
+						<input class="form-control" type="text" id="sw" placeholder="Starts with">
+					</div>
+					<div class="col-md-3">
+						<input class="form-control" type="text" id="ew" placeholder="Ends With">
+					</div>
+					<div class="col-md-3">
+						<input class="form-control" type="text" id="con" placeholder="Contains">
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-3">
+		<div class="row justify-content-md-center">
+			<div class="col-md-8">
+				<div class="" id="result" style="margin-bottom: 100px;">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <script type="text/javascript" src="./twlDict.js"></script> -->
+<!-- <script type="text/javascript" src="./sowpodsDict.js"></script> -->
+<script type="text/javascript" src="./enable.js"></script>
+<script type="text/javascript" src="./unscramble.js"></script>
+<script>
+	var toggle  = document.getElementById("show_advance");
+	var content = document.getElementById("content");
+
+	toggle.addEventListener("click", function(){
+	  content.classList.toggle("appear");
+	  content.classList.toggle("display");
+	}, false);
+
+
+	$('#scrmbWrd').keyup(function(){
+		$('.search-button').removeClass('show_hide');
+	})
+
+	$('.search-button').on('click',function(){
+		$('#scrmbWrd').val('');
+	})
+</script>
+</body>
+</html>
